@@ -1,4 +1,4 @@
-# YouTube Channel Tracker
+# YLWrite (YouTube-to-LinkedIn Write)
 
 An AI agent that monitors a specific YouTube channel for new uploads, extracts transcripts, summarizes content, and generates LinkedIn post drafts.
 
