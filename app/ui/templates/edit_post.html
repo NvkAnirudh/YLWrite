@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post - {{ video.title }}{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="display-5">Edit LinkedIn Post</h1>
+            <div>
+                <a href="{{ url_for('view_post', video_id=video.video_id) }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-x"></i> Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Video Details</h5>
+            </div>
+            <div class="card-body">
+                {% if video.thumbnail_url %}
+                <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" class="img-fluid mb-3 rounded">
+                {% endif %}
+                
+                <h5>{{ video.title }}</h5>
+                <p class="text-muted">{{ video.channel_title }}</p>
+                
+                <a href="https://www.youtube.com/watch?v={{ video.video_id }}" target="_blank" class="btn btn-sm btn-outline-danger w-100">
+                    <i class="bi bi-youtube"></i> Watch on YouTube
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Edit LinkedIn Post</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{{ url_for('edit_post', video_id=video.video_id) }}">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Post Title</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" required>
+                        <div class="form-text">A catchy title for your LinkedIn post</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Post Content</label>
+                        <textarea class="form-control" id="content" name="content" rows="12" required>{{ post.content }}</textarea>
+                        <div class="form-text">
+                            The body of your LinkedIn post. Make sure it's engaging and contains relevant hashtags.
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('view_post', video_id=video.video_id) }}" class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check2"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-resize textarea as user types
+    document.addEventListener('DOMContentLoaded', function() {
+        const textarea = document.getElementById('content');
+        
+        if (textarea) {
+            const adjustHeight = () => {
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
+            };
+            
+            // Initial height adjustment
+            adjustHeight();
+            
+            // Adjust height when content changes
+            textarea.addEventListener('input', adjustHeight);
+        }
+    });
+</script>
+{% endblock %} 
